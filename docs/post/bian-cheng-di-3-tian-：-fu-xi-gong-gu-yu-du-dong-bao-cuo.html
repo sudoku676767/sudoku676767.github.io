@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script>window.UBU_BASE=/^\/sudoku\.github\.io(\/|$)/.test(location.pathname)?'/sudoku.github.io':'';(function(b,d){var l=d.createElement('link');l.rel='stylesheet';l.href=b+'/ubuntu/ubuntu.css';d.head.appendChild(l);var s=d.createElement('script');s.src=b+'/ubuntu/ubuntu.js';s.async=false;d.head.appendChild(s);})(window.UBU_BASE,document);</script>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/339383486?v=4&size=64"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="> 今天是**放慢节奏的巩固日**：新知识很少，重点是把前两天的内容练熟，并学会读懂 Python 的报错。">
+<meta property="og:title" content="编程第3天：复习巩固与读懂报错">
+<meta property="og:description" content="> 今天是**放慢节奏的巩固日**：新知识很少，重点是把前两天的内容练熟，并学会读懂 Python 的报错。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sudoku676767.github.io/post/bian-cheng-di-3-tian-%EF%BC%9A-fu-xi-gong-gu-yu-du-dong-bao-cuo.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/339383486?v=4&size=64">
+<title>编程第3天：复习巩固与读懂报错</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">编程第3天：复习巩固与读懂报错</h1>
+<div class="title-right">
+    <a href="https://sudoku676767.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/sudoku676767/sudoku676767.github.io/issues/8" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><blockquote>
+<p>今天是<strong>放慢节奏的巩固日</strong>：新知识很少，重点是把前两天的内容练熟，并学会读懂 Python 的报错。<br>
+读懂报错，是你以后看懂 AI 代码、发现 AI 出错的基本功。<br>
+用时：约 1 小时。代码里的提示和输出都用英文，讲解用中文。</p>
+</blockquote>
+<blockquote>
+<p>如果第 1、2 天的练习还没做完，今天可以只做「热身」和「知识点 1、2」，剩下的时间把前两天的练习补上。</p>
+</blockquote>
+<hr>
+<h2>热身：复习第 2 天（10 分钟）</h2>
+<p>先猜，再用 <code class="notranslate">python3</code> 运行验证：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">name</span> <span class="pl-c1">=</span> <span class="pl-s">"  alice "</span>
+<span class="pl-en">print</span>(<span class="pl-s">f"Hi, <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">name</span>.<span class="pl-c1">strip</span>().<span class="pl-c1">title</span>()<span class="pl-kos">}</span></span>!"</span>)
+<span class="pl-en">print</span>(<span class="pl-en">len</span>(<span class="pl-s1">name</span>.<span class="pl-c1">strip</span>()))</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">age</span> <span class="pl-c1">=</span> <span class="pl-c1">30</span>
+<span class="pl-s1">is_member</span> <span class="pl-c1">=</span> <span class="pl-c1">False</span>
+<span class="pl-k">if</span> <span class="pl-s1">age</span> <span class="pl-c1">&gt;=</span> <span class="pl-c1">18</span> <span class="pl-c1">and</span> <span class="pl-c1">not</span> <span class="pl-s1">is_member</span>:
+    <span class="pl-en">print</span>(<span class="pl-s">"Please sign up first."</span>)
+<span class="pl-k">elif</span> <span class="pl-s1">age</span> <span class="pl-c1">&gt;=</span> <span class="pl-c1">18</span>:
+    <span class="pl-en">print</span>(<span class="pl-s">"Welcome back!"</span>)
+<span class="pl-k">else</span>:
+    <span class="pl-en">print</span>(<span class="pl-s">"Too young."</span>)</pre></div>
+<hr>
+<h2>知识点 1：一份报错长什么样</h2>
+<p>新手看到一大片红字容易慌，其实报错是 Python 在<strong>告诉你哪里出了问题</strong>。我们拆开看：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">age</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"How old are you? "</span>)
+<span class="pl-en">print</span>(<span class="pl-s1">age</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span>)</pre></div>
+<p>运行后输入 <code class="notranslate">18</code>：</p>
+<pre class="notranslate"><code class="notranslate">Traceback (most recent call last):
+  File "/home/you/learn-python/age.py", line 2, in &lt;module&gt;
+    print(age + 1)
+          ~~~~^~~
+TypeError: can only concatenate str (not "int") to str
+</code></pre>
+<p><strong>从下往上读</strong>：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>位置</th>
+<th>内容</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最后一行冒号前</td>
+<td><code class="notranslate">TypeError</code></td>
+<td><strong>错误类型</strong>：类型不对</td>
+</tr>
+<tr>
+<td>最后一行冒号后</td>
+<td><code class="notranslate">can only concatenate str (not "int") to str</code></td>
+<td><strong>具体说明</strong>：字符串只能和字符串拼接，不能和整数拼接</td>
+</tr>
+<tr>
+<td>倒数第 2～3 行</td>
+<td><code class="notranslate">print(age + 1)</code> 和 <code class="notranslate">~~~~^~~</code></td>
+<td><strong>出错的代码</strong>，波浪线指出具体位置</td>
+</tr>
+<tr>
+<td><code class="notranslate">File ..., line 2</code></td>
+<td>第 2 行</td>
+<td><strong>出错的文件和行号</strong></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>所以这条报错的意思是：第 2 行，<code class="notranslate">age</code> 是字符串，不能直接 <code class="notranslate">+ 1</code>。修法你已经会了：<code class="notranslate">age = int(input(...))</code>。</p>
+<blockquote>
+<p>读报错三步：<strong>① 看最后一行的错误类型 → ② 看行号找到代码 → ③ 结合说明想原因。</strong></p>
+</blockquote>
+<hr>
+<h2>知识点 2：五种最常见的报错</h2>
+<h3>1. <code class="notranslate">SyntaxError</code>：语法错误（代码写得不符合规则）</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">if</span> <span class="pl-c1">5</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">3</span>
+    <span class="pl-en">print</span>(<span class="pl-s">"yes"</span>)</pre></div>
+<pre class="notranslate"><code class="notranslate">    if 5 &gt; 3
+            ^
+SyntaxError: expected ':'
+</code></pre>
+<p>意思：这里应该有一个冒号。常见原因：少冒号、少括号、引号没闭合。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">print</span>("<span class="pl-v">Hello</span>)</pre></div>
+<pre class="notranslate"><code class="notranslate">SyntaxError: unterminated string literal (detected at line 1)
+</code></pre>
+<p>意思：字符串没有结束（少了后面的引号）。</p>
+<h3>2. <code class="notranslate">IndentationError</code>：缩进错误</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">if</span> <span class="pl-c1">5</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">3</span>:
+<span class="pl-en">print</span>(<span class="pl-s">"yes"</span>)</pre></div>
+<pre class="notranslate"><code class="notranslate">IndentationError: expected an indented block after 'if' statement on line 1
+</code></pre>
+<p>意思：<code class="notranslate">if</code> 下面应该有缩进的代码块。</p>
+<h3>3. <code class="notranslate">NameError</code>：名字没定义（通常是拼错了）</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">name</span> <span class="pl-c1">=</span> <span class="pl-s">"Tom"</span>
+<span class="pl-en">print</span>(<span class="pl-s1">nme</span>)</pre></div>
+<pre class="notranslate"><code class="notranslate">NameError: name 'nme' is not defined. Did you mean: 'name'?
+</code></pre>
+<p>新版 Python 很贴心，还会猜你想写的是 <code class="notranslate">name</code>。</p>
+<h3>4. <code class="notranslate">TypeError</code>：类型不对</h3>
+<p>就是知识点 1 的例子：字符串和数字不能直接相加、比较大小。</p>
+<h3>5. <code class="notranslate">ValueError</code>：值不对</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">age</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-en">input</span>(<span class="pl-s">"Age: "</span>))     <span class="pl-c"># 用户输入了 abc</span></pre></div>
+<pre class="notranslate"><code class="notranslate">ValueError: invalid literal for int() with base 10: 'abc'
+</code></pre>
+<p>意思：<code class="notranslate">"abc"</code> 没法转成整数。类型对（是字符串），但内容不对。</p>
+<blockquote>
+<p>💡 <strong>一个重要规律</strong>：<code class="notranslate">SyntaxError</code> 和 <code class="notranslate">IndentationError</code> 在程序<strong>运行前</strong>就会报出来，一行都不会执行；其他错误要<strong>运行到那一行</strong>才会出现。所以修好一个错误后，可能又冒出下一个，这很正常，一个一个来。</p>
+</blockquote>
+<hr>
+<h2>知识点 3：提前检查输入，避免 <code class="notranslate">ValueError</code></h2>
+<p>用户不一定按你的要求输入。可以先用 <code class="notranslate">.isdigit()</code> 检查字符串是不是全是数字：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">text</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"How old are you? "</span>).<span class="pl-c1">strip</span>()
+
+<span class="pl-k">if</span> <span class="pl-s1">text</span>.<span class="pl-c1">isdigit</span>():
+    <span class="pl-s1">age</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-s1">text</span>)
+    <span class="pl-en">print</span>(<span class="pl-s">f"Next year you will be <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">age</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span><span class="pl-kos">}</span></span>."</span>)
+<span class="pl-k">else</span>:
+    <span class="pl-en">print</span>(<span class="pl-s">"Please enter a whole number."</span>)</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-s">"18"</span>.<span class="pl-c1">isdigit</span>())    <span class="pl-c"># True</span>
+<span class="pl-en">print</span>(<span class="pl-s">"abc"</span>.<span class="pl-c1">isdigit</span>())   <span class="pl-c"># False</span>
+<span class="pl-en">print</span>(<span class="pl-s">"1.75"</span>.<span class="pl-c1">isdigit</span>())  <span class="pl-c"># False，小数点不是数字</span></pre></div>
+<blockquote>
+<p>先只处理正整数就好。负数、小数的检查方法以后再学。</p>
+</blockquote>
+<hr>
+<h2>今日练习</h2>
+<h3>练习 1：读报错（不用写代码）</h3>
+<p>有人运行 BMI 程序时看到了这个报错：</p>
+<pre class="notranslate"><code class="notranslate">Traceback (most recent call last):
+  File "/home/you/learn-python/bmi.py", line 3, in &lt;module&gt;
+    bmi = weight / height ** 2
+                   ~~~~~~~^^~~
+TypeError: unsupported operand type(s) for ** or pow(): 'str' and 'int'
+</code></pre>
+<p>回答三个问题：</p>
+<ol>
+<li>错误类型是什么？出在第几行？</li>
+<li>波浪线指向的是哪个部分？</li>
+<li>你猜第 1 行的代码是怎么写的？应该怎么改？</li>
+</ol>
+<h3>练习 2：穿衣建议 <code class="notranslate">outfit.py</code>（综合小项目）</h3>
+<p>程序问今天的温度（整数）和是否下雨（yes/no），然后给出建议：</p>
+<ul>
+<li>输入的温度不是数字 → <code class="notranslate">Please enter a whole number.</code>，程序结束</li>
+<li>28 度及以上 → <code class="notranslate">It's hot. Wear a T-shirt.</code></li>
+<li>18 到 27 度 → <code class="notranslate">It's mild. Wear a long-sleeve shirt.</code></li>
+<li>18 度以下 → <code class="notranslate">It's cold. Wear a coat.</code></li>
+<li>如果下雨（输入 <code class="notranslate">yes</code>、<code class="notranslate">YES</code>、<code class="notranslate">Yes</code> 都算），再多打印一行 <code class="notranslate">Don't forget your umbrella!</code></li>
+</ul>
+<p>运行效果示例：</p>
+<pre class="notranslate"><code class="notranslate">What's the temperature today? 22
+Is it raining? (yes/no) YES
+It's mild. Wear a long-sleeve shirt.
+Don't forget your umbrella!
+</code></pre>
+<p>提示：<code class="notranslate">.isdigit()</code>、<code class="notranslate">int()</code>、<code class="notranslate">.strip().lower()</code>、<code class="notranslate">if / elif / else</code>，下雨的判断是<strong>另一个独立的 <code class="notranslate">if</code></strong>。</p>
+<h3>练习 3：读代码（先猜，再运行）</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">text</span> <span class="pl-c1">=</span> <span class="pl-s">"2024"</span>
+<span class="pl-en">print</span>(<span class="pl-s1">text</span>.<span class="pl-c1">isdigit</span>())
+<span class="pl-en">print</span>(<span class="pl-s1">text</span>[<span class="pl-c1">0</span>] <span class="pl-c1">+</span> <span class="pl-s1">text</span>[<span class="pl-c1">-</span><span class="pl-c1">1</span>])
+<span class="pl-en">print</span>(<span class="pl-en">int</span>(<span class="pl-s1">text</span>[<span class="pl-c1">0</span>]) <span class="pl-c1">+</span> <span class="pl-en">int</span>(<span class="pl-s1">text</span>[<span class="pl-c1">-</span><span class="pl-c1">1</span>]))</pre></div>
+<h3>练习 4（挑战）：一个一个修 bug</h3>
+<p>把下面的代码存成 <code class="notranslate">shop.py</code>，<strong>真的运行它</strong>，输入价格 <code class="notranslate">5</code>、数量 <code class="notranslate">3</code>。每次只修报错指出的那一个问题，然后再运行，直到程序正确输出 <code class="notranslate">Total: 15 yuan</code>。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">price</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"Price of one apple: "</span>)
+<span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-en">input</span>(<span class="pl-s">"How many apples? "</span>))
+<span class="pl-s1">total</span> <span class="pl-c1">=</span> <span class="pl-s1">price</span> <span class="pl-c1">*</span> <span class="pl-s1">count</span>
+<span class="pl-en">print</span>(<span class="pl-s">f"Total: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">totl</span><span class="pl-kos">}</span></span> yuan"</span>)
+<span class="pl-k">if</span> <span class="pl-s1">total</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">100</span>
+    <span class="pl-en">print</span>(<span class="pl-s">"You get a free bag!"</span>)</pre></div>
+<p>记录下来：一共遇到了几次报错？分别是什么类型？有没有哪个问题<strong>没有报错</strong>，但结果是错的？</p>
+<hr>
+<h2>和 AI 一起学（今天的提问练习）</h2>
+<p>今天练习<strong>把报错完整地交给 AI</strong>。</p>
+<ol>
+<li>做练习 4 时，选一次报错，这样问 AI：<br>
+「我是 Python 初学者，用的是 Ubuntu。运行下面的代码时出现了报错。<br>
+代码：（粘贴完整代码）<br>
+报错：（粘贴完整报错，从 Traceback 开始）<br>
+请用简单的话解释这个报错的意思和原因，先不要给出改好的代码。」</li>
+<li>想一想：如果你只说「我的代码报错了，怎么办」，AI 能帮到你吗？它缺少了哪些信息？</li>
+</ol>
+<blockquote>
+<p>好的提问 = <strong>代码 + 完整报错 + 你的环境 + 你想要什么样的帮助</strong>。</p>
+</blockquote>
+<hr>
+<h2>今日自测</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> 我知道读报错要从最后一行开始看</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> 我能从报错里找到出错的行号</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> 我能说出 <code class="notranslate">SyntaxError</code>、<code class="notranslate">NameError</code>、<code class="notranslate">TypeError</code>、<code class="notranslate">ValueError</code> 大概分别是什么问题</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> 我知道为什么有时修好一个报错，又会出现新的报错</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> 我会用 <code class="notranslate">.isdigit()</code> 检查输入</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> 我完成了练习 2 的穿衣建议程序</li>
+</ul>
+<hr>
+<h2>学习日志（追加到 <code class="notranslate">日志.md</code>）</h2>
+<pre class="notranslate"><code class="notranslate">## 第 3 天
+- 今天学了：
+- 我遇到最多的报错类型是：
+- 练习 4 里没有报错但结果错了的地方是：
+</code></pre>
+<hr>
+<details>
+<summary>📖 参考答案（做完再看！点击展开）</summary>
+<p><strong>热身</strong></p>
+<ul>
+<li>第一段：<code class="notranslate">Hi, Alice!</code> 和 <code class="notranslate">5</code></li>
+<li>第二段：<code class="notranslate">Please sign up first.</code>（30 ≥ 18 成立，<code class="notranslate">not False</code> 是 True，两边都成立）</li>
+</ul>
+<p><strong>练习 1</strong></p>
+<ol>
+<li><code class="notranslate">TypeError</code>，出在第 3 行</li>
+<li>指向 <code class="notranslate">height ** 2</code>，问题出在对 <code class="notranslate">height</code> 做乘方</li>
+<li>第 1 行大概写成了 <code class="notranslate">height = input("Your height (m): ")</code>，忘了转换。<code class="notranslate">height</code> 是字符串，字符串不能做乘方。改成 <code class="notranslate">height = float(input("Your height (m): "))</code></li>
+</ol>
+<p><strong>练习 2</strong></p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">temp_text</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"What's the temperature today? "</span>).<span class="pl-c1">strip</span>()
+
+<span class="pl-k">if</span> <span class="pl-s1">temp_text</span>.<span class="pl-c1">isdigit</span>():
+    <span class="pl-s1">temp</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-s1">temp_text</span>)
+    <span class="pl-s1">raining</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"Is it raining? (yes/no) "</span>).<span class="pl-c1">strip</span>().<span class="pl-c1">lower</span>()
+
+    <span class="pl-k">if</span> <span class="pl-s1">temp</span> <span class="pl-c1">&gt;=</span> <span class="pl-c1">28</span>:
+        <span class="pl-en">print</span>(<span class="pl-s">"It's hot. Wear a T-shirt."</span>)
+    <span class="pl-k">elif</span> <span class="pl-s1">temp</span> <span class="pl-c1">&gt;=</span> <span class="pl-c1">18</span>:
+        <span class="pl-en">print</span>(<span class="pl-s">"It's mild. Wear a long-sleeve shirt."</span>)
+    <span class="pl-k">else</span>:
+        <span class="pl-en">print</span>(<span class="pl-s">"It's cold. Wear a coat."</span>)
+
+    <span class="pl-k">if</span> <span class="pl-s1">raining</span> <span class="pl-c1">==</span> <span class="pl-s">"yes"</span>:
+        <span class="pl-en">print</span>(<span class="pl-s">"Don't forget your umbrella!"</span>)
+<span class="pl-k">else</span>:
+    <span class="pl-en">print</span>(<span class="pl-s">"Please enter a whole number."</span>)</pre></div>
+<p>注意：下雨的判断和温度的判断是<strong>两个独立的 <code class="notranslate">if</code></strong>。如果写成 <code class="notranslate">elif raining == "yes"</code>，热天下雨时就不会提醒带伞了。</p>
+<p><strong>练习 3</strong></p>
+<ul>
+<li><code class="notranslate">True</code></li>
+<li><code class="notranslate">24</code>（字符串拼接：<code class="notranslate">"2"</code> + <code class="notranslate">"4"</code>）</li>
+<li><code class="notranslate">6</code>（先转成整数：2 + 4）</li>
+</ul>
+<p><strong>练习 4</strong>：按顺序会遇到</p>
+<ol>
+<li><code class="notranslate">SyntaxError: expected ':'</code>（第 5 行少冒号）。程序一行都没运行就报错了</li>
+<li><code class="notranslate">NameError: name 'totl' is not defined. Did you mean: 'total'?</code>（第 4 行拼错）</li>
+<li>修好后程序输出了 <code class="notranslate">Total: 555 yuan</code>，<strong>没有报错，但结果是错的！</strong> <code class="notranslate">price</code> 是字符串 <code class="notranslate">"5"</code>，<code class="notranslate">"5" * 3</code> 是把字符串重复 3 遍</li>
+<li>接着报 <code class="notranslate">TypeError: '&gt;' not supported between instances of 'str' and 'int'</code>（第 5 行，字符串不能和数字比大小）</li>
+</ol>
+<p>根本原因只有一个：第 1 行忘了转换类型。改成 <code class="notranslate">price = float(input(...))</code> 或 <code class="notranslate">int(input(...))</code> 后，第 3、4 个问题同时消失。</p>
+<p>正确代码：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">price</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-en">input</span>(<span class="pl-s">"Price of one apple: "</span>))
+<span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-en">input</span>(<span class="pl-s">"How many apples? "</span>))
+<span class="pl-s1">total</span> <span class="pl-c1">=</span> <span class="pl-s1">price</span> <span class="pl-c1">*</span> <span class="pl-s1">count</span>
+<span class="pl-en">print</span>(<span class="pl-s">f"Total: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">total</span><span class="pl-kos">}</span></span> yuan"</span>)
+<span class="pl-k">if</span> <span class="pl-s1">total</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">100</span>:
+    <span class="pl-en">print</span>(<span class="pl-s">"You get a free bag!"</span>)</pre></div>
+<p><strong>今天最重要的一课</strong>：「没有报错」不等于「程序是对的」。<code class="notranslate">555</code> 这种错误最隐蔽，以后审查 AI 写的代码时，也要<strong>拿具体的例子去验证结果</strong>，而不只是看它能不能跑。</p>
+</details></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://sudoku676767.github.io">sudoku blog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.disabled=true;
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","sudoku676767/sudoku676767.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
